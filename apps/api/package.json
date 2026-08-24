@@ -1,0 +1,25 @@
+{
+	"name": "@workspace/api",
+	"type": "module",
+	"main": "src/index.ts",
+	"types": "src/index.ts",
+	"scripts": {
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy --minify",
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
+	},
+	"dependencies": {
+		"@clerk/hono": "^0.1.71",
+		"@hono/zod-validator": "^0.9.0",
+		"@neondatabase/serverless": "^1.1.0",
+		"@types/node": "^20.19.43",
+		"dotenv": "^17.4.2",
+		"drizzle-kit": "^0.31.10",
+		"drizzle-orm": "^0.45.2",
+		"hono": "^4.13.4",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"wrangler": "^4.110.0"
+	}
+}
