@@ -1,16 +1,14 @@
-import FetchProducts from "@/components/fetchproduct"
-import { ImageUploader } from "@/components/image-uploader"
-import { ProductForm } from "@/components/product-form"
-import { redirect } from "next/navigation"
-
+import { SalonForm } from "@/modules/salons/components/salons-form";
+import { SalonList } from "@/modules/salons/components/salons-list";
 
 const HomePage = () => {
-  return (
-    <div className=" max-w-4xl items-center justify-center min-h-screen py-20">
-      <ProductForm/>
-      <FetchProducts/>
-    </div>
-  )
-}
+	return (
+		<div className=" items-center justify-center min-h-screen py-20">
+			<SalonForm />
 
-export default HomePage
+      <SalonList />
+		</div>
+	);
+};
+
+export default HomePage;
