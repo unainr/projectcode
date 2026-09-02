@@ -5,34 +5,28 @@ import { client } from "@/lib/hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferResponseType } from "hono/client";
 import { Button } from "./ui/button";
+import { useDeleteSalon } from "@/hooks/salons/use-salons";
+import { toast } from "sonner";
 
 
-export function DeleteProductButton({ productId }: { productId: string }) {
-type ResponseType = InferResponseType<
-	(typeof client.api.test.products)[":id"]["$delete"]
->;
-  const queryClient = useQueryClient();
+export function DeleteProductButton({ Id }: { Id: string }) {
+ const { mutate: deleteWorkspace, isPending: isDeleting } =useDeleteSalon(Id)
+  const handleDelete = () => {
+    if (!Id) return
 
-  const deleteProduct = useMutation<ResponseType, Error>({
-    mutationFn: async () => {
-      const res = await client.api.test.products[":id"]["$delete"]({
-       param:{id:productId}
-      })
-      if (!res.ok) throw new Error("Failed to delete");
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-  });
-
+    deleteWorkspace(undefined, {
+      onSuccess: () => {
+        toast.success("Workspace deleted successfully")
+      },
+    })
+  }
   return (
     <Button
       type="button"
-      onClick={() => deleteProduct.mutate()}
-      disabled={deleteProduct.isPending}
+      onClick={handleDelete}
+      disabled={isDeleting}
     >
-      {deleteProduct.isPending ? "Deleting..." : "Delete"}
+         {isDeleting ? "Deleting..." : "Delete"}
     </Button>
   );
 }
