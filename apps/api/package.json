@@ -9,17 +9,21 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
 	},
 	"dependencies": {
-		"@clerk/hono": "^0.1.71",
-		"@hono/zod-validator": "^0.9.0",
+		"@ai-sdk/groq": "^4.0.37",
+		"@clerk/hono": "^0.1.76",
+		"@composio/core": "^0.18.0",
+		"@composio/vercel": "^0.11.2",
+		"@hono/zod-validator": "^0.9.1",
 		"@neondatabase/serverless": "^1.1.0",
 		"@types/node": "^20.19.43",
+		"ai": "^7.0.92",
 		"dotenv": "^17.4.2",
 		"drizzle-kit": "^0.31.10",
 		"drizzle-orm": "^0.45.2",
-		"hono": "^4.13.4",
-		"zod": "^4.4.3"
+		"hono": "^4.13.5",
+		"zod": "^4.5.4"
 	},
 	"devDependencies": {
-		"wrangler": "^4.110.0"
+		"wrangler": "^4.129.0"
 	}
 }

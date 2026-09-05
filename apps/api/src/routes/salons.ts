@@ -9,13 +9,15 @@ import { and, eq } from "drizzle-orm";
 import { deleteImageKitFile } from "../lib/imagekit-auth";
 import { salonSchema } from "../schema/salon-schema";
 import { salons } from "../db/schema";
+import type { CloudflareBindings } from "../types";
+
 // salons post api
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 	.use("*", requireUser)
 
 	.post("/", requireUser, zValidator("json", salonSchema), async (c) => {
 		const ownerId = c.get("userId");
-		const db = getDb(c.env.DATABASE_URL);
+		const db = getDb(c.env);
 		const { name, address, city, description, phone } =
 			await c.req.valid("json");
 		const data = await db
@@ -34,7 +36,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 	// GET /  — list salons for the logged-in owner
 	.get("/", requireUser, async (c) => {
 		const ownerId = c.get("userId");
-		const db = getDb(c.env.DATABASE_URL);
+		const db = getDb(c.env);
 
 		const data = await db
 			.select()
@@ -47,7 +49,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 	.get("/:id", requireUser, async (c) => {
 		const ownerId = c.get("userId");
 		const id = c.req.param("id");
-		const db = getDb(c.env.DATABASE_URL);
+		const db = getDb(c.env);
 
 		const [salon] = await db
 			.select()
@@ -69,7 +71,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 		async (c) => {
 			const ownerId = c.get("userId");
 			const { id } = c.req.valid("param");
-			const db = getDb(c.env.DATABASE_URL);
+			const db = getDb(c.env);
 			const body = await c.req.valid("json");
 
 			const [existing] = await db
@@ -98,7 +100,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 		async (c) => {
 			const ownerId = c.get("userId");
 			const { id } = c.req.valid("param");
-			const db = getDb(c.env.DATABASE_URL);
+			const db = getDb(c.env);
 
 			const [existing] = await db
 				.select()

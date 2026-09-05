@@ -4,6 +4,9 @@ import { clerkMiddleware } from "@clerk/hono";
 
 import uploadimage from "./routes/uploadimage";
 import salons from "./routes/salons";
+import composio from "./routes/composio";
+import integrations from "./routes/integrations";
+import type { CloudflareBindings } from "./types";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 	.basePath("/api")
@@ -21,7 +24,10 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 	})
 
 	.route("/upload", uploadimage)
-	.route("/salons", salons);
+	.route("/salons", salons)
+
+	.route("/composio", composio)
+	.route("/integrations", integrations);
 
 export default app;
 export type AppType = typeof app;
