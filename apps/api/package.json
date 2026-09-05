@@ -9,6 +9,7 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
 	},
 	"dependencies": {
+		"@ai-sdk/google": "^4.0.63",
 		"@ai-sdk/groq": "^4.0.37",
 		"@clerk/hono": "^0.1.76",
 		"@composio/core": "^0.18.0",

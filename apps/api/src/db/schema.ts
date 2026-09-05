@@ -148,3 +148,13 @@ export const aiSessions = pgTable(
     userIdIdx: index("ai_sessions_user_id_idx").on(table.userId),
   }),
 );
+
+
+
+// -----------=========================
+export const composioSessions = pgTable("composio_sessions", {
+  // Clerk user ID — stable, use directly as Composio userId
+  userId:    text("user_id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
