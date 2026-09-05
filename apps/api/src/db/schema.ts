@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, decimal, boolean, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, decimal, boolean, uuid, jsonb, index, pgEnum } from "drizzle-orm/pg-core";
 
 export const salons = pgTable("salons", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -54,3 +54,97 @@ export const bookings = pgTable("bookings", {
   status: text("status").default("confirmed"),
   createdAt: timestamp("created_at").defaultNow(),
 });
+
+
+
+// composio testing schema 
+// packages/db/src/schema.ts
+
+export const messageRoleEnum = pgEnum("message_role", [
+  "user",
+  "assistant",
+]);
+
+export const conversations = pgTable(
+  "conversations",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+
+    userId: text("user_id").notNull(),
+
+    title: text("title"),
+
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+    })
+      .defaultNow()
+      .notNull(),
+
+    updatedAt: timestamp("updated_at", {
+      withTimezone: true,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => ({
+    userIdIdx: index("conversations_user_id_idx").on(table.userId),
+
+    updatedAtIdx: index("conversations_updated_at_idx").on(
+      table.updatedAt,
+    ),
+  }),
+);
+
+export const messages = pgTable(
+  "messages",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+
+    conversationId: uuid("conversation_id")
+      .notNull()
+      .references(() => conversations.id, {
+        onDelete: "cascade",
+      }),
+
+    role: messageRoleEnum("role").notNull(),
+
+    content: text("content").notNull(),
+
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => ({
+    conversationIdx: index("messages_conversation_id_idx").on(
+      table.conversationId,
+    ),
+  }),
+);
+
+export const aiSessions = pgTable(
+  "ai_sessions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+
+    userId: text("user_id").notNull().unique(),
+
+    composioSessionId: text("composio_session_id").notNull(),
+
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+    })
+      .defaultNow()
+      .notNull(),
+
+    updatedAt: timestamp("updated_at", {
+      withTimezone: true,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => ({
+    userIdIdx: index("ai_sessions_user_id_idx").on(table.userId),
+  }),
+);
