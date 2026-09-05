@@ -7,6 +7,10 @@ import salons from "./routes/salons";
 import composio from "./routes/composio";
 import integrations from "./routes/integrations";
 import type { CloudflareBindings } from "./types";
+import chat from "./routes/chat";
+import toolkits from "./routes/toolkits";
+import connect from "./routes/connect";
+import disconnect from "./routes/disconnect";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 	.basePath("/api")
@@ -27,7 +31,11 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 	.route("/salons", salons)
 
 	.route("/composio", composio)
-	.route("/integrations", integrations);
+	.route("/integrations", integrations)
+	.route("/chat", chat)
+	.route("/toolkits", toolkits)
+	.route("/connect", connect)
+	.route("/disconnect", disconnect);
 
 export default app;
 export type AppType = typeof app;
