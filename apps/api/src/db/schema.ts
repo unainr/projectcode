@@ -158,3 +158,20 @@ export const composioSessions = pgTable("composio_sessions", {
   sessionId: text("session_id").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+
+export const chats = pgTable("chats", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: text("user_id").notNull(),
+  title: text("title"), // optional: derive from first message later
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const chatMessages = pgTable("chat_messages", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  chatId: uuid("chat_id").notNull().references(() => chats.id, { onDelete: "cascade" }),
+  role: text("role").notNull(), // "user" | "assistant"
+  parts: jsonb("parts").notNull(), // store the full UIMessage.parts array (text + tool calls)
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

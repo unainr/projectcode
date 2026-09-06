@@ -20,6 +20,7 @@ import {
 	Sparkles,
 	TriangleAlert,
 } from "lucide-react";
+import { Spinner } from "./ui/spinner";
 
 export function Chat({ chatId }: { chatId: string }) {
 	const [input, setInput] = useState("");
@@ -50,7 +51,7 @@ export function Chat({ chatId }: { chatId: string }) {
 	};
 
 	return (
-		<Card className="flex flex-col h-[650px] w-full max-w-4xl mx-auto shadow-sm border border-border/60">
+		<Card className="flex flex-col h-162.5 w-full max-w-4xl mx-auto shadow-sm border border-border/60">
 			<CardHeader className="border-b border-border/40 py-3.5 px-6 flex flex-row items-center justify-between">
 				<div className="flex items-center gap-2.5">
 					<div className="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
@@ -133,7 +134,8 @@ export function Chat({ chatId }: { chatId: string }) {
 							<Bot className="size-4" />
 						</div>
 						<div className="rounded-2xl px-4 py-2.5 bg-muted/60 border border-border/40 flex items-center gap-2 text-muted-foreground text-xs">
-							<Loader2 className="size-3.5 animate-spin" />
+														<Spinner/>
+
 							<span>Thinking...</span>
 						</div>
 					</div>
@@ -166,7 +168,7 @@ export function Chat({ chatId }: { chatId: string }) {
 						size="default"
 						disabled={isStreaming || !input.trim()}>
 						{isStreaming ? (
-							<Loader2 className="size-4 animate-spin" />
+							<Spinner/>
 						) : (
 							<>
 								<Send className="size-4" />

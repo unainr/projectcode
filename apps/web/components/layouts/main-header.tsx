@@ -29,25 +29,12 @@ export function MainHeader() {
 				<div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-4 px-5">
 					{/* LEFT — logo + separator + links */}
 					<div className="flex h-full items-center">
-						<Link href="/" className="flex items-center gap-2 pr-5">
-							<Image
-								src="/logo.svg"
-								alt="CareInktake Logo"
-								width={800}
-								height={800}
-								loading="eager"
-								className="h-7 w-auto object-contain hidden dark:block"
-							/>
-
-							<Image
-								src="/logo1.svg"
-								alt="CareInktake Logo"
-								width={800}
-								height={800}
-								loading="eager"
-								className="h-7 w-auto object-contain dark:hidden block"
-							/>
-						</Link>
+						<Link
+  href="/"
+  className="flex items-center gap-2 pr-5 text-xl font-bold tracking-tight"
+>
+  <span className="text-foreground">Amanises</span>
+</Link>
 
 						{/* Separator */}
 						<div className="hidden h-5 w-px bg-white/10 lg:block" />

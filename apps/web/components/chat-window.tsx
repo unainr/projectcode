@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send, Sparkles, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Spinner } from "./ui/spinner";
 
 export function ChatWindow() {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -233,7 +234,7 @@ function ThinkingIndicator() {
   return (
     <div className="flex justify-start">
       <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm bg-muted px-4 py-2.5 text-sm text-muted-foreground">
-        <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+      <Spinner/>
         <span>Thinking</span>
         <BouncingDots />
       </div>
