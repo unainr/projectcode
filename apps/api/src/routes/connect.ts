@@ -3,17 +3,9 @@ import { requireUser } from "../middleware/auth";
 
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
-import { getDb } from "../db";
 
-import { and, eq } from "drizzle-orm";
-import { deleteImageKitFile } from "../lib/imagekit-auth";
-import { salonSchema } from "../schema/salon-schema";
-import { salons } from "../db/schema";
-import type { CloudflareBindings } from "../types";
 import { getOrCreateSession } from "../lib/session";
-import { stepCountIs, streamText } from "ai";
-import { streamSSE } from "hono/streaming";
-import { groq } from "@ai-sdk/groq";
+import type { CloudflareBindings } from "../types";
 
 const ConnectBodySchema = z.object({
   // e.g. "github", "gmail", "slack", "notion"
